@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Rich Gang AI backup policy (SECURITY_REVIEW SEC-07, decided
+  2026-10-23 in the flagship sweep):
+
+  Preference data is DEVICE-LOCAL and is never backed up: the
+  shared-preferences domain holds character mind state, Danny's
+  ledger/self-upgrade state, the discernment record, per-character
+  provider IDs, Stage overrides — and the age-assurance record.
+  Age-assurance state in particular must never ride a backup into
+  a "restored verification": excluding the whole domain is the
+  fail-closed way to guarantee that.
+
+  The daemon's SQLite store file (app files dir, wired in P6) is
+  excluded for the same reason: its datasets are local state, and
+  its future content is not backup-cleared.
+
+  Provider API keys live in Keystore-backed secure storage and are
+  not part of Auto Backup.
+
+  A new or restored device therefore starts with fresh local
+  state. That is the policy, stated here rather than inherited
+  from platform defaults.
+-->
+<full-backup-content>
+    <exclude domain="sharedpref" path="." />
+    <exclude domain="file" path="rich_gang_ai/daemon_store.sqlite3" />
+    <exclude domain="file" path="rich_gang_ai/daemon_store.sqlite3-wal" />
+    <exclude domain="file" path="rich_gang_ai/daemon_store.sqlite3-shm" />
+</full-backup-content>

@@ -1,0 +1,69 @@
+name: rich_gang_ai
+description: Rich Gang AI - private, on-device AI companion (personal build).
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  ffi: ^2.1.0
+  http: ^1.2.0
+  # VERIFIED on pub.dev (see ../docs/VERIFY.md): actively maintained,
+  # Keystore-backed. native_encrypted_storage also exists (^0.1.0) but is a
+  # small, stale package - do not switch to it for an API key.
+  flutter_secure_storage: ^9.0.0
+  # VERIFIED: package is flutter_displaymode; API is
+  # FlutterDisplayMode.setPreferredMode(DisplayMode). There is no
+  # RefreshRate.setPreferredRate - that name was hallucinated.
+  flutter_displaymode: ^0.6.0
+  # First-party Flutter plugin (pub.dev), used ONLY for small durable
+  # counters/flags (cold-open launch count). Secrets never go here -
+  # the NVIDIA key stays in flutter_secure_storage (see SecureKeys).
+  shared_preferences: ^2.3.2
+  # App-private directories (P6 runtime daemon config: the SQLite
+  # store lives under the application support directory). Already
+  # a transitive dependency of audioplayers/flutter_secure_storage;
+  # declared directly because main.dart now calls it.
+  path_provider: ^2.1.0
+  # LiveKit Flutter client (Crew Link voice/video rooms). Verified on
+  # pub.dev (docs.livekit.io Flutter reference): Room().connect(url,
+  # token); Android needs the WebRTC permissions added to the manifest.
+  livekit_client: ^2.8.0
+  # HMAC-SHA256 for minting LiveKit access tokens (JWT) on-device.
+  crypto: ^3.0.3
+  flutter_tts: ^4.2.5
+  audioplayers: ^6.8.1
+  speech_to_text: ^7.5.0
+  model_viewer_plus: ^1.10.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    # Daemon config (personas + interrogation scene "facts"). Ships
+    # empty by design: scene data is supplied by the user, never
+    # invented by the app. Format: ../docs/SCENE_FORMAT.md.
+    - assets/daemon_config.json
+    # Character roster (docs/CHARACTER_AI.md): the Swarm of Six +
+    # Leo/Capricorn/Aquarius, with roles, voice casting, baselines.
+    - assets/characters.json
+    # Richard's own frame art for The Room hero (from
+    # design_refs/2026-10-21_freak_show_characters/).
+    - assets/images/room_boardroom.png
+    - assets/images/freak_show_cover.png
+    # Cast poster + per-character cinematic portraits (generated
+    # 2026-10-21 from the roster definitions + Richard's frames;
+    # docs/CHARACTER_AI.md "Hollywood portraits").
+    - assets/images/cast_poster.jpg
+    - assets/images/portraits/
+    # Stage demo model (RobotExpressive, three.js examples r160) —
+    # a labelled pipeline demo, NOT a character. Character GLBs are
+    # configured per character (docs/CHARACTER_AI.md "3D Stage").
+    - assets/models/stage_demo_robot.glb

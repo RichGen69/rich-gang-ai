@@ -1,0 +1,20 @@
+analyzer:
+  exclude:
+    - build/**
+    - android/**
+  language:
+    # Enabled 2026-10-21 (hidden-bug audit, Richard's ask): the
+    # whole codebase passes strict casts/inference/raw-types with
+    # zero findings - keep it that way; new code must too.
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    # Fire-and-forget futures must say so via unawaited(...) -
+    # silent discards hid real lifecycle bugs before this audit.
+    unawaited_futures: true
+    discarded_futures: true
+    avoid_dynamic_calls: true

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Device-transfer / cloud-backup extraction rules (Android 12+).
+  Same policy as backup_rules.xml (SEC-07): preference data and
+  the daemon SQLite store are device-local and never transfer —
+  age-assurance state is never carried to another device as a
+  restored verification.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="sharedpref" path="." />
+        <exclude domain="file" path="rich_gang_ai/daemon_store.sqlite3" />
+        <exclude domain="file" path="rich_gang_ai/daemon_store.sqlite3-wal" />
+        <exclude domain="file" path="rich_gang_ai/daemon_store.sqlite3-shm" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="sharedpref" path="." />
+        <exclude domain="file" path="rich_gang_ai/daemon_store.sqlite3" />
+        <exclude domain="file" path="rich_gang_ai/daemon_store.sqlite3-wal" />
+        <exclude domain="file" path="rich_gang_ai/daemon_store.sqlite3-shm" />
+    </device-transfer>
+</data-extraction-rules>

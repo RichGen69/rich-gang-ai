@@ -1,0 +1,106 @@
+# ============================================================================
+# PROPOSAL ONLY — DO NOT APPLY
+# Cloud GPU JobSet for THE ROOM / Rich Gang AI Productions
+# Date: 2026-10-30
+#
+# This file is a proposal, not a deployment. It has NEVER been applied
+# with kubectl, and it must not be applied as written: every value that
+# is not yet known is an explicit REPLACE_WITH_* placeholder, not a real
+# project, cluster, image, GPU type, count, region, or bucket.
+#
+# Source structure mirrored: Richard's pasted TPU JobSet
+# (richgang-sovereign-tpu-cluster, 2 replicated jobs, parallelism 4,
+# completions 4). Only the accelerator layer was swapped TPU -> GPU.
+# The pasted TPU manifest itself was never applied either: no GCP
+# project, quota, cluster, daemon image, checkpoint bucket, or
+# checkpoint configuration exists on record.
+#
+# Posture conflict, stated plainly: this blueprint's $0 / air-gapped
+# claim does NOT survive this file. A cloud GPU cluster is a billed
+# service, and any workload sent to it leaves the local device.
+# No price, quota, or availability is claimed anywhere in this file.
+# ============================================================================
+apiVersion: jobset.x-k8s.io/v1alpha2
+kind: JobSet
+metadata:
+  name: richgang-sovereign-gpu-cluster
+  namespace: default
+  labels:
+    proposal-only: "true"
+    replaces-tpu-manifest: "richgang-sovereign-tpu-cluster"
+spec:
+  # Mirrored from the pasted TPU manifest. These counts are carried over
+  # structure, not a sizing decision: no workload measurement justifies
+  # 2 replicas x 4 completions, and no GPU count has been chosen.
+  replicatedJobs:
+    - name: gpu-worker-node
+      replicas: 2
+      template:
+        spec:
+          parallelism: 4
+          completions: 4
+          template:
+            spec:
+              # GPU node pool selector. The value is a placeholder:
+              # replace with the actual accelerator name of the node
+              # pool once a GPU type is chosen (e.g. the GKE
+              # accelerator label for that type). No GPU type is
+              # chosen or claimed here.
+              nodeSelector:
+                cloud.google.com/gke-accelerator: REPLACE_WITH_GPU_TYPE
+                # Optional, also undecided: add a node-pool label here
+                # once a cluster exists, e.g.
+                # cloud.google.com/gke-nodepool: REPLACE_WITH_NODEPOOL
+              # GPU-node toleration, to be verified against the actual
+              # node pool's taints once a cluster exists. Do not assume
+              # it matches a real pool.
+              tolerations:
+                - key: "nvidia.com/gpu"
+                  operator: "Exists"
+                  effect: "NoSchedule"
+              containers:
+                - name: sovereign-daemon
+                  # Placeholder only. No daemon image exists: the
+                  # verified Rust core (rich_gang_ai_core) has no GPU
+                  # code, no CUDA code, and no model, and no image has
+                  # been built or pushed anywhere.
+                  image: us-docker.pkg.dev/REPLACE_WITH_GCP_PROJECT/daemons/sovereign-core:REPLACE_WITH_TAG
+                  # GPU driver / CUDA stack: undecided. The image, once
+                  # built, must match the node pool's installed NVIDIA
+                  # driver and CUDA version. Neither is specified here.
+                  resources:
+                    limits:
+                      # Placeholder, not a quantity: replace with the
+                      # chosen GPUs-per-pod as a plain number string.
+                      nvidia.com/gpu: "REPLACE_WITH_GPU_COUNT_PER_POD"
+                    requests:
+                      nvidia.com/gpu: "REPLACE_WITH_GPU_COUNT_PER_POD"
+                  # Checkpoint mount point is mirrored in name only.
+                  # The TPU Multi-Tier Checkpointing CSI driver
+                  # (checkpoint.gke.io) does NOT apply to GPU nodes and
+                  # is deliberately NOT carried over. Durable GPU
+                  # checkpointing is an open design item (see the
+                  # comparison note): the daemon currently has no
+                  # checkpoint/resume path at all.
+                  volumeMounts:
+                    - mountPath: /mnt/checkpoints
+                      name: checkpoint-storage
+              volumes:
+                - name: checkpoint-storage
+                  # Placeholder only: replace with a real checkpoint
+                  # volume once a bucket / storage design exists
+                  # (for example a GCS-backed volume or a
+                  # PersistentVolumeClaim created for that bucket).
+                  # No bucket, claim, or checkpoint configuration
+                  # exists on record.
+                  persistentVolumeClaim:
+                    claimName: REPLACE_WITH_CHECKPOINT_PVC
+              # Undecided, deliberately absent from this proposal:
+              # - Cluster name and region: REPLACE_WITH_CLUSTER,
+              #   REPLACE_WITH_REGION (chosen only when a provider
+              #   and budget are approved; GCP is implied by the GKE
+              #   shape of the pasted manifest, not confirmed).
+              # - JobSet controller installation on that cluster.
+              # - GPU driver installation method on the node pool.
+              # - Any secret, key, credential, or model file reference:
+              #   none is included, and none may be pasted in here.

@@ -1,0 +1,22 @@
+# Build outputs and toolchains — never pushed
+spikes/
+rich_gang_ai_core/target/
+flutter_app/build/
+flutter_app/.dart_tool/
+flutter_app/.flutter-plugins
+flutter_app/.flutter-plugins-dependencies
+**/*.log
+# Local-only and non-source trees
+design_refs/
+html_build/
+facebook_showcase/
+release/
+# Secrets and signing (none currently present; kept as a guard)
+*.env*
+*keystore*
+*.pem
+*.key
+id_rsa*
+*secret*
+*.bak
+*.orig
