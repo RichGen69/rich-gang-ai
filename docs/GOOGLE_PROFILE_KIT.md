@@ -9,7 +9,7 @@ record; nothing here is a projection or a market-superiority claim.
 - **Business name:** Rich Gang AI Productions
 - **Category (primary):** Software company
 - **Website:** https://rich-gang-ai-33richchosen-6537s-projects.vercel.app
-- **Location:** Houston, Texas, United States
+- **Location:** Huffman, Texas, United States
 - **Service area:** Houston, Texas (and remote/online clients — set
   the service area, not a public street address, unless Richard
   chooses otherwise; his home address is never published)
@@ -21,20 +21,23 @@ record; nothing here is a projection or a market-superiority claim.
 ## Business description (paste-ready, under Google's limits)
 
 > Rich Gang AI Productions builds cinematic multi-agent AI
-> character systems. Flagship platform THE ROOM — Rich Gang AI:
-> an Android-first Flutter/Dart app with a custom Rust daemon
-> core, persistent on-device character minds, agent-to-agent
-> roundtables with a full draft / critique / revise reasoning
-> chain, and circuit-breaker failover from cloud providers to a
-> local Ollama path. A 42-character registry (10 fully
-> configured), a standalone sovereign multi-agent OS with
-> human-approval-gated vault, and a unified edge/frontier
-> system. Verified test suites: Flutter 112/112, Rust 78/78.
-> Pre-revenue; IP & codebase offered for acquisition at $50,000.
+> character systems in Huffman, Texas. Flagship platform THE
+> ROOM — Rich Gang AI: an Android-first Flutter/Dart app with
+> a custom Rust daemon core, persistent on-device character
+> minds, agent-to-agent roundtables with a full draft /
+> critique / revise reasoning chain, and circuit-breaker
+> failover from cloud providers to a local Ollama path. A
+> 42-character registry (10 fully configured), a standalone
+> sovereign multi-agent OS with a human-approval-gated vault,
+> a unified edge/frontier system, and a WTF Zone multiverse
+> cast with a UE5 Room scaffold. Verified test suites
+> (VM-only, Nov 1, 2026): Rust 93, Flutter 126. Founder
+> Richard Lambeth, Base44 Builder #664,854. Pre-revenue,
+> stated plainly.
 
 ## Founder line (for the profile's "About" / posts)
 
-> Founder & CEO: Richard Lambeth, Houston, Texas — creator and
+> Founder & CEO: Richard Lambeth, Huffman, Texas — creator and
 > founder of Rich Gang AI and Rich Gang AI Productions.
 > "I wasn't meant to build a chatbot — I was meant to build
 > thrones." (founder's own words)
