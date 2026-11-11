@@ -16,6 +16,7 @@ import '../theme/obsidian.dart';
 import 'avatar_stage_view.dart';
 import 'character_chat_view.dart';
 import 'character_ui.dart';
+import 'command_screen.dart';
 import 'interrogation_view.dart';
 import 'roundtable_view.dart';
 import 'settings_view.dart';
@@ -34,7 +35,8 @@ import 'tier10_hud.dart';
 ///   emotion from the affect engine and its interaction count from
 ///   its self-model. Tap → one-to-one chat; camera icon → HeyGen
 ///   call screen (from the chat screen's app bar too).
-/// - Actions: Roundtable, Deep Dream, Interrogation.
+/// - Actions: Roundtable, Deep Dream, Command (live daemon state),
+///   Interrogation.
 /// - Room controls (frame rate / performance director)
 ///   kept from the Milestone 7-8 wiring, in their own section.
 ///
@@ -385,6 +387,25 @@ class _TheRoomState extends State<TheRoom> {
                 ),
               ),
             ],
+          ),
+        ),
+        // ---------- COMMAND — LIVE DAEMON STATE ----------
+        // Real numbers only: spawn budget, intent queue, store,
+        // ring, and topology read live from the daemon. The screen
+        // itself carries the NOT MEASURED strip for everything it
+        // does not measure.
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+          child: SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                    builder: (_) => const CommandScreen()),
+              ),
+              icon: const Icon(Icons.terminal),
+              label: const Text('Command — live daemon state'),
+            ),
           ),
         ),
         // ---------- LABS — PREVIEW SURFACES ----------
